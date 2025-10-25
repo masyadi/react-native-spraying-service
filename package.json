@@ -5,7 +5,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "del lib",
+    "clean": "del-cli lib",
     "build": "npm run clean && tsc",
     "prepare": "npm run build"
   },
