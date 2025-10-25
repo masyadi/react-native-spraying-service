@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "del-cli lib",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc && npm run copy:assets",
+    "copy:assets": "cpx \"src/assets/**/*\" lib/assets",
     "prepare": "npm run build"
   },
   "keywords": [],
@@ -44,6 +45,7 @@
     "@types/react": "^19.1.12",
     "@types/react-native": "^0.73.0",
     "commitlint": "^19.8.1",
+    "cpx": "^1.5.0",
     "del-cli": "^6.0.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
