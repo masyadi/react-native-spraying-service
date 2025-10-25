@@ -21,7 +21,6 @@
     "moment": "*",
     "react": ">=18.0.0",
     "react-native": ">=0.72.0",
-    "react-native-flash-message": ">=0.4.2",
     "react-native-geolocation-service": ">=3.0.0",
     "react-native-maps": ">=1.25.3",
     "react-native-modal-datetime-picker": ">=18.0.0",
