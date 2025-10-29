@@ -48,7 +48,7 @@ Tambahkan konfigurasi dasar berikut di App.js atau file utama navigasi Anda:
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Navigation, setConfig } from "@pakjarot/spraying-services";
+import { SprayingServiceNavigator, setConfig } from "@pakjarot/spraying-services";
 
 const Stack = createNativeStackNavigator();
 
