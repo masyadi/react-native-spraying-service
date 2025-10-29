@@ -31,6 +31,7 @@ const Button = ({
   const backgroundColor = isOutline ? "transparent" : color;
   const borderColor = color;
   const textColor = isOutline ? color : COLORS.white;
+  const textSizeStyle = styles[`text_${size}`];
 
   return (
     <Pressable
@@ -60,7 +61,7 @@ const Button = ({
           />
         )}
         {title != null && (
-          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+          <Text style={[styles.text, textSizeStyle, { color: textColor }]}>{title}</Text>
         )}
       </Row>
     </Pressable>
@@ -76,26 +77,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    fontSize: FONT_SIZE.font16,
-    color: COLORS.white,
     fontWeight: "bold",
+  },
+  text_small: {
+    fontSize: FONT_SIZE.font14,
+  },
+  text_medium: {
+    fontSize: FONT_SIZE.font16,
+  },
+  text_large: {
+    fontSize: FONT_SIZE.font18,
   },
   small: {
     minHeight: 36,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    text: { fontSize: FONT_SIZE.font14 },
   },
   medium: {
     minHeight: 48,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    text: { fontSize: FONT_SIZE.font16 },
   },
   large: {
     minHeight: 60,
     paddingVertical: 14,
     paddingHorizontal: 28,
-    text: { fontSize: FONT_SIZE.font18 },
   },
 });
