@@ -18,7 +18,7 @@ const Order = ({ navigation, route: { params } }) => {
   const initDate = moment().add(1, "days").add(2, "hour");
   const times = [
     { title: "Pagi", value: "pagi" },
-    { title: "Siang", value: "siang" },
+    { title: "Sore", value: "sore" },
     { title: "Malam", value: "malam" },
   ];
 
