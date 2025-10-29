@@ -121,7 +121,6 @@ const Maps = ({
   // };
 
   React.useEffect(() => {
-    console.log("masuk....");
     if (region?.latitudeDelta) {
       setLatitudeDelta(region.latitudeDelta);
     }

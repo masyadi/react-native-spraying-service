@@ -10,6 +10,9 @@ import Row from "./Row";
  * @param {string} param.title
  * @param {boolean} param.loading
  * @param {boolean} param.disabled
+ * @param {"small"|"medium"|"large"} param.size
+ * @param {"solid"|"outline"} param.type
+ * @param {string} param.color
  * @param {function} param.onPress
  * @param {import('react-native').StyleProp<import('react-native').ViewStyle>} param.style
  * @returns
@@ -18,18 +21,33 @@ const Button = ({
   title,
   loading = false,
   disabled = false,
+  size = "medium",
+  type = "solid",
+  color = COLORS.primary,
   onPress,
   style,
 }) => {
+  const isOutline = type === "outline";
+  const backgroundColor = isOutline ? "transparent" : color;
+  const borderColor = color;
+  const textColor = isOutline ? color : COLORS.white;
+
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
-      android_ripple={{ color: "rgba(255,255,255,0.3)" }}
+      android_ripple={{
+        color: isOutline ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.3)",
+      }}
       style={({ pressed }) => [
         styles.button,
-        disabled && { backgroundColor: "#6c757d" },
+        styles?.[size],
         pressed && { opacity: 0.85 },
+        {
+          backgroundColor: disabled ? "#6c757d" : backgroundColor,
+          borderColor: disabled ? "#6c757d" : borderColor,
+          borderWidth: isOutline ? 2 : 0,
+        },
         style,
       ]}
     >
@@ -41,7 +59,9 @@ const Button = ({
             style={{ marginRight: 8 }}
           />
         )}
-        {title != null && <Text style={styles.text}>{title}</Text>}
+        {title != null && (
+          <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+        )}
       </Row>
     </Pressable>
   );
@@ -51,10 +71,6 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    minHeight: 50,
-    backgroundColor: COLORS.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
@@ -63,5 +79,23 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.font16,
     color: COLORS.white,
     fontWeight: "bold",
+  },
+  small: {
+    minHeight: 36,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    text: { fontSize: FONT_SIZE.font14 },
+  },
+  medium: {
+    minHeight: 48,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    text: { fontSize: FONT_SIZE.font16 },
+  },
+  large: {
+    minHeight: 60,
+    paddingVertical: 14,
+    paddingHorizontal: 28,
+    text: { fontSize: FONT_SIZE.font18 },
   },
 });

@@ -12,7 +12,7 @@ import {
 } from "../../components";
 import { COLORS, FONT_SIZE } from "../../constans";
 
-const Pestisida = ({ navigation }) => {
+const Pestisida = ({ navigation, route: { params } }) => {
   const [data, setData] = React.useState([
     { title: "Herbisida", value: null, checked: false },
     { title: "Fungsida", value: null, checked: false },
@@ -33,7 +33,7 @@ const Pestisida = ({ navigation }) => {
     );
 
     if (!values.length) {
-      Alert.alert('Error', 'Pestisida harus dipilih')
+      Alert.alert("Error", "Pestisida harus dipilih");
       return;
     }
 
@@ -43,7 +43,7 @@ const Pestisida = ({ navigation }) => {
       return;
     }
 
-    navigation.navigate("OrderSummary", { ...params, pestisida: values });
+    navigation.navigate("BuyerScreen", { ...params, pestisida: values });
   };
 
   const renderHeader = () => {

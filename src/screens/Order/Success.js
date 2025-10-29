@@ -1,23 +1,62 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import {
+  BackHandler,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Container, Space, Text } from "../../components";
 import { COLORS, FONT_SIZE } from "../../constans";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useFocusEffect } from "@react-navigation/native";
+import { getConfig } from "../../config";
+import { numberFormat } from "../../helpers";
 
-const Success = () => {
+const Success = ({ navigation, route: { params } }) => {
+  const parentNav = navigation.getParent();
+  const { coin } = getConfig();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (parentNav) {
+          const rootApp = parentNav.getState()?.routeNames?.[0];
+          parentNav.reset({
+            index: 0,
+            routes: [{ name: rootApp }],
+          });
+        }
+        return true;
+      };
+
+      const handler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress
+      );
+
+      return () => handler.remove();
+    }, [navigation])
+  );
+
   return (
     <SafeAreaView>
       <ScrollView>
         <Container>
-          <View style={{ alignItems: "center" }}>
-            {/* <FontAwesome5 name="check-circle" size={47} color="#11B722" /> */}
+          <View style={{ alignItems: "center", marginTop: 45 }}>
+            <FontAwesome5 name="check-circle" size={100} color="#13c453" />
             <Space size={39} />
             <Text style={[styles.title, { color: COLORS.black }]}>
               Pesanan Berhasil
             </Text>
             <Space size={28} />
-            <Text style={styles.title}>Anda memperoleh:</Text>
-            <Text style={styles.poin}>+100 poin</Text>
-            <Space size={43} />
+            {coin > 0 && (
+              <>
+                <Text style={styles.title}>Anda memperoleh:</Text>
+                <Text style={styles.poin}>+{numberFormat(coin)} poin</Text>
+                <Space size={43} />
+              </>
+            )}
             <Text style={styles.body}>
               {`Terima kasih sudah memesan jasa semprot lahan pertanian menggunakan drone. \n\nStaf / Petugas Pak Jarot akan segera menghubungi pemesan untuk memproses pesanan ini. \n\nUntuk perubahan jadwal dan pembatalan, silakan menghubungi sales Alishan. \n\nPoin akan masuk ke saldo Anda setelah proses semprot selesai.`}
             </Text>

@@ -15,10 +15,6 @@ import { COLORS } from "../constans";
 
 const Stack = createNativeStackNavigator();
 
-export const Routes = {
-  ScreenHome: "HomeScreen",
-};
-
 const Navigation = () => {
   const navigationRef = useNavigationContainerRef();
 

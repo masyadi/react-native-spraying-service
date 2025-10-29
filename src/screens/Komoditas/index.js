@@ -1,23 +1,18 @@
 import React from "react";
 import { Alert, FlatList, SafeAreaView, View } from "react-native";
-// import {
-//   Container,
-//   EmptyData,
-//   Loading,
-//   RadioSectionItem,
-//   Space,
-// } from "../../../components";
-// import { getKomoditas } from '../../../services';
-// import { Button, Input, Text } from 'react-native-elements';
 import { COLORS } from "../../constans";
 import {
   Button,
   Container,
+  EmptyData,
+  LoadingScreen,
   RadioSectionItem,
   Space,
   Text,
   Textarea,
 } from "../../components";
+import { usePagination } from "../../helpers";
+import { getKomoditas } from "../../services";
 
 const Komoditas = ({ navigation, route: { params } }) => {
   const [item, setItem] = React.useState([]);
@@ -52,28 +47,37 @@ const Komoditas = ({ navigation, route: { params } }) => {
     }
 
     if (params?.pestisida) {
-      navigation.navigate("PestisidaOption", { ...params, ...values });
+      navigation.navigate("PestisidaScreen", { ...params, ...values });
       return;
     }
-    // navigation.navigate("OrderSummary", { ...params, ...values });
     navigation.navigate("BuyerScreen", { ...params, ...values });
   };
 
-  //   const pagination = usePagination({
-  //     onReseted: () => {
-  //       getData();
-  //     },
-  //     onLoadMored: () => {
-  //       getData();
-  //     },
-  //   });
+  const pagination = usePagination({
+    onReseted: () => {
+      getData();
+    },
+    onLoadMored: () => {
+      getData();
+    },
+  });
 
-  //   const renderEmpty = () => {
-  //     if (pagination.loading) {
-  //       return <Loading />;
-  //     }
-  //     return <EmptyData onRefresh={pagination.onReset} absoluteCenter={false} />;
-  //   };
+  const renderEmpty = () => {
+    if (pagination.loading) {
+      return <LoadingScreen visible={true} />;
+    }
+
+    if (pagination.error?.message) {
+      return (
+        <EmptyData
+          title={pagination.error.message}
+          buttonText="Kembali"
+          onPress={() => navigation.goBack()}
+        />
+      );
+    }
+    return <EmptyData onRefresh={pagination.onReset} />;
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -114,45 +118,42 @@ const Komoditas = ({ navigation, route: { params } }) => {
     );
   };
 
-  //   React.useEffect(() => {
-  //     getData();
-  //   }, []);
+  React.useEffect(() => {
+    getData();
+  }, []);
 
-  //   React.useEffect(() => {
-  //     if (!checked?.id) {
-  //       setChecked(pagination.items[0]);
-  //     }
-  //   }, [pagination.items]);
+  React.useEffect(() => {
+    if (!checked?.id) {
+      setChecked(pagination.items[0]);
+    }
+  }, [pagination.items]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        data={[
-          { id: 1, name: "Padi" },
-          { id: 2, name: "Tembakau" },
-          { id: "other", name: "Lainnya" },
-        ]}
-        // data={pagination.items.concat(item)}
+        data={pagination.items.concat(item)}
         keyExtractor={(_, index) => index.toString()}
         removeClippedSubviews={false}
         renderItem={renderItem}
-      // ListEmptyComponent={renderEmpty}
-      // contentContainerStyle={{
-      //   flexGrow: 1,
-      //   ...(!pagination.items.length ? { justifyContent: 'center' } : null),
-      // }}
-      // onEndReachedThreshold={0.1}
-      // onEndReached={({ distanceFromEnd }) => {
-      //   if (distanceFromEnd > 0 && pagination.hasMoreData) {
-      //     pagination.onLoadMore();
-      //   }
-      // }}
+        ListEmptyComponent={renderEmpty}
+        contentContainerStyle={{
+          flexGrow: 1,
+          ...(!pagination.items.length ? { justifyContent: "center" } : null),
+        }}
+        onEndReachedThreshold={0.1}
+        onEndReached={({ distanceFromEnd }) => {
+          if (distanceFromEnd > 0 && pagination.hasMoreData) {
+            pagination.onLoadMore();
+          }
+        }}
       />
-      <View style={{ backgroundColor: COLORS.white, paddingVertical: 14 }}>
-        <Container>
-          <Button title="Selanjutnya" onPress={handleSubmit} />
-        </Container>
-      </View>
+      {pagination.items.length > 0 && (
+        <View style={{ backgroundColor: COLORS.white, paddingVertical: 14 }}>
+          <Container>
+            <Button title="Selanjutnya" onPress={handleSubmit} />
+          </Container>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
