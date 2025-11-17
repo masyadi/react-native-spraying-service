@@ -27,6 +27,9 @@ npm install \
   @react-native-community/datetimepicker \
   @react-navigation/native \
   @react-navigation/native-stack \
+  @react-navigation/material-top-tabs \
+  react-native-tab-view \
+  react-native-pager-view \
   axios \
   formik \
   moment \
