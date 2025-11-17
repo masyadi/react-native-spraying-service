@@ -1,7 +1,7 @@
 {
   "name": "@pakjarot/spraying-services",
   "version": "1.0.1",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
   "description": "",
   "peerDependencies": {
     "@react-native-community/datetimepicker": ">=8.4.4",
+    "@react-navigation/material-top-tabs": ">=6.0.0",
     "@react-navigation/native": ">=6.0.0",
     "@react-navigation/native-stack": ">=6.0.0",
     "axios": "*",
@@ -27,6 +28,8 @@
     "react-native-modal-datetime-picker": ">=18.0.0",
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
+    "react-native-tab-view": "*",
+    "react-native-pager-view": "*",
     "react-native-vector-icons": ">=10.3.0",
     "yup": "*"
   },
@@ -41,6 +44,7 @@
     "@react-native-community/datetimepicker": "^8.4.5",
     "@react-native/babel-preset": "0.81.1",
     "@react-native/eslint-config": "^0.81.1",
+    "@react-navigation/material-top-tabs": "^6.6.14",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "@release-it/conventional-changelog": "^10.0.1",

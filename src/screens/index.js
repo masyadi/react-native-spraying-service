@@ -6,3 +6,5 @@ export { default as Komoditas } from "./Komoditas";
 export { default as Buyer } from "./Buyer";
 export { default as Summary } from "./Summary";
 export { default as Pestisida } from "./Pestisida";
+export { default as OrderHistory } from "./OrderHistory";
+export { default as OrderHistoryShow } from "./OrderHistory/Show";

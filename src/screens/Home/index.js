@@ -30,11 +30,9 @@ const Home = ({ navigation }) => {
       setLoading(true);
       const { data } = await getProduct();
 
-      console.log(data);
       setItems(data);
     } catch (e) {
       setError(e.message);
-      console.log(e.message);
     } finally {
       setLoading(false);
     }
@@ -75,12 +73,17 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor={COLORS.transparent} barStyle="dark-content" />
       <ScrollView>
         <Image source={assets.ilustrasi} style={styles.image} />
         <View style={styles.sectionItem}>{items?.map(renderItem)}</View>
       </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("OrderHistory")}>
+          <Text style={styles.textLink}>Riwayat Pesanan</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -110,5 +113,15 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     resizeMode: "contain",
+  },
+  footer: {
+    position: "absolute",
+    bottom: 24,
+    width: "100%",
+  },
+  textLink: {
+    fontSize: FONT_SIZE.font16,
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
 });

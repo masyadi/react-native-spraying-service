@@ -5,6 +5,7 @@ import {
   Home,
   Komoditas,
   Order,
+  OrderHistoryShow,
   OrderSuccess,
   Pestisida,
   PinLocation,
@@ -12,6 +13,7 @@ import {
 } from "../screens";
 import { useNavigationContainerRef } from "@react-navigation/native";
 import { COLORS } from "../constans";
+import OrderHistoryTab from "./OrderHistoryTab";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +31,7 @@ const Navigation = () => {
       }}
     >
       <Stack.Screen
-        name={Routes.ScreenHome}
+        name="HomeScreen"
         component={Home}
         options={{ headerShown: false }}
       />
@@ -67,6 +69,16 @@ const Navigation = () => {
         name="PestisidaScreen"
         component={Pestisida}
         options={{ title: "Pilih Cairan" }}
+      />
+      <Stack.Screen
+        name="OrderHistory"
+        component={OrderHistoryTab}
+        options={{ title: "Pesanan Jasa Semprot" }}
+      />
+      <Stack.Screen
+        name="OrderHistoryShow"
+        component={OrderHistoryShow}
+        options={{ title: "" }}
       />
     </Stack.Navigator>
   );
