@@ -57,9 +57,19 @@ const Success = ({ navigation, route: { params } }) => {
                 <Space size={43} />
               </>
             )}
-            <Text style={styles.body}>
-              {`Terima kasih sudah memesan jasa semprot lahan pertanian menggunakan drone. \n\nStaf / Petugas Pak Jarot akan segera menghubungi pemesan untuk memproses pesanan ini. \n\nUntuk perubahan jadwal dan pembatalan, silakan menghubungi sales Alishan. \n\nPoin akan masuk ke saldo Anda setelah proses semprot selesai.`}
-            </Text>
+            {params?.message?.map((item, index) => (
+              <Text
+                key={index.toString()}
+                style={[
+                  styles.body,
+                  item.bold ? { fontWeight: "bold" } : null,
+                  item.center ? { textAlign: "center" } : null,
+                  { marginBottom: 15 },
+                ]}
+              >
+                {item.text}
+              </Text>
+            ))}
           </View>
         </Container>
       </ScrollView>
