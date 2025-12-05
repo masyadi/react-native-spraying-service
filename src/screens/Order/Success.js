@@ -44,7 +44,7 @@ const Success = ({ navigation, route: { params } }) => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <Container>
           <View style={{ alignItems: "center", marginTop: 45 }}>
