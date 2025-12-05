@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { Container, Space, Text } from "../../components";
+import { Button, Container, Space, Text } from "../../components";
 import { COLORS, FONT_SIZE } from "../../constans";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useFocusEffect } from "@react-navigation/native";
@@ -17,16 +17,20 @@ const Success = ({ navigation, route: { params } }) => {
   const parentNav = navigation.getParent();
   const { coin } = getConfig();
 
+  const backToHome = () => {
+    if (parentNav) {
+      const rootApp = parentNav.getState()?.routeNames?.[0];
+      parentNav.reset({
+        index: 0,
+        routes: [{ name: rootApp }],
+      });
+    }
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        if (parentNav) {
-          const rootApp = parentNav.getState()?.routeNames?.[0];
-          parentNav.reset({
-            index: 0,
-            routes: [{ name: rootApp }],
-          });
-        }
+        backToHome();
         return true;
       };
 
@@ -71,8 +75,19 @@ const Success = ({ navigation, route: { params } }) => {
               </Text>
             ))}
           </View>
+          <Space size={30} />
         </Container>
       </ScrollView>
+      <View style={{ backgroundColor: COLORS.white, paddingVertical: 14 }}>
+        <Container>
+          <Button
+            title="Kembali ke Beranda"
+            type="outline"
+            color={COLORS.textGrey}
+            onPress={backToHome}
+          />
+        </Container>
+      </View>
     </SafeAreaView>
   );
 };

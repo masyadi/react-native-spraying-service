@@ -47,7 +47,7 @@ const Button = ({
         {
           backgroundColor: disabled ? "#6c757d" : backgroundColor,
           borderColor: disabled ? "#6c757d" : borderColor,
-          borderWidth: isOutline ? 2 : 0,
+          borderWidth: isOutline ? 1 : 0,
         },
         style,
       ]}
