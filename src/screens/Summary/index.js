@@ -16,7 +16,7 @@ import { getConfig, triggerOrderSuccess } from "../../config";
 const Summary = ({ navigation, route: { params } }) => {
   const [loading, setLoading] = React.useState(false);
 
-  const { externalUser } = getConfig();
+  const { buyerForm, externalUser } = getConfig();
 
   const handleSubmit = async () => {
     try {
@@ -32,7 +32,12 @@ const Summary = ({ navigation, route: { params } }) => {
         serviceType: params?.service_type,
         timeArguably: params?.time?.value,
         externalUser: externalUser,
-        buyer: params.buyer,
+        buyer: buyerForm
+          ? params.buyer
+          : {
+            name: externalUser.name,
+            phone: externalUser.phone,
+          },
         pestisida: params?.pestisida?.map((item) => ({
           title: item.title,
           value: item.value,
@@ -68,10 +73,13 @@ const Summary = ({ navigation, route: { params } }) => {
         <Container>
           <Text style={styles.title}>Pastikan data pesanan sudah sesuai.</Text>
           <Space size={25} />
-          <SectionText title="Nama Pemesan" subtitle={params.buyer.name} />
+          <SectionText
+            title="Nama Pemesan"
+            subtitle={buyerForm ? params.buyer.name : externalUser.name}
+          />
           <SectionText
             title="Nomor HP / Whatsapp"
-            subtitle={params.buyer.phone}
+            subtitle={buyerForm ? params.buyer.phone : externalUser.phone}
           />
           <SectionText
             title="Lokasi Lahan"

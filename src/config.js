@@ -3,6 +3,8 @@ const init = {
   baseUrl: null,
   /** @type {string} */
   appToken: null,
+  /** @type {boolean} */
+  buyerForm: true,
   /** @type {{id: string, name: string, phone?: string, email?: string}} */
   externalUser: null,
   /** @type {number} */

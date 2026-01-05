@@ -13,11 +13,14 @@ import {
 } from "../../components";
 import { usePagination } from "../../helpers";
 import { getKomoditas } from "../../services";
+import { getConfig } from "../../config";
 
 const Komoditas = ({ navigation, route: { params } }) => {
   const [item, setItem] = React.useState([]);
   const [checked, setChecked] = React.useState();
   const [other, setOther] = React.useState();
+
+  const { buyerForm } = getConfig();
 
   const getData = async () => {
     try {
@@ -50,7 +53,13 @@ const Komoditas = ({ navigation, route: { params } }) => {
       navigation.navigate("PestisidaScreen", { ...params, ...values });
       return;
     }
-    navigation.navigate("BuyerScreen", { ...params, ...values });
+
+    if (buyerForm) {
+      navigation.navigate("BuyerScreen", { ...params, ...values });
+      return;
+    }
+
+    navigation.navigate("SummaryScreen", { ...params, ...values });
   };
 
   const pagination = usePagination({

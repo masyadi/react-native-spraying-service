@@ -11,6 +11,7 @@ import {
   Textarea,
 } from "../../components";
 import { COLORS, FONT_SIZE } from "../../constans";
+import { getConfig } from "../../config";
 
 const Pestisida = ({ navigation, route: { params } }) => {
   const [data, setData] = React.useState([
@@ -22,6 +23,8 @@ const Pestisida = ({ navigation, route: { params } }) => {
   ]);
 
   const [errors, setErrors] = React.useState();
+
+  const { buyerForm } = getConfig();
 
   const handleSubmit = () => {
     const values = data.filter((item) => item.checked);
@@ -43,7 +46,12 @@ const Pestisida = ({ navigation, route: { params } }) => {
       return;
     }
 
-    navigation.navigate("BuyerScreen", { ...params, pestisida: values });
+    if (buyerForm) {
+      navigation.navigate("BuyerScreen", { ...params, pestisida: values });
+      return;
+    }
+
+    navigation.navigate("SummaryScreen", { ...params, pestisida: values });
   };
 
   const renderHeader = () => {
@@ -53,10 +61,6 @@ const Pestisida = ({ navigation, route: { params } }) => {
       </Container>
     );
   };
-
-  React.useEffect(() => {
-    console.log("data", data);
-  }, [data]);
 
   const renderItem = ({ item }) => {
     return (
